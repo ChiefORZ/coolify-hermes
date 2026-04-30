@@ -11,8 +11,6 @@ services:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
-    networks:
-      - hermes-net
     deploy:
       resources:
         limits:
@@ -27,8 +25,6 @@ services:
       - hermes-data:/opt/data
     environment:
       - GATEWAY_HEALTH_URL=http://hermes:8642
-    networks:
-      - hermes-net
     depends_on:
       - hermes
     deploy:
@@ -44,8 +40,12 @@ services:
       - SECRET=${TINYAUTH_SECRET}
       - APP_URL=${HERMES_URL}
       - USERS=${TINYAUTH_USERS}
-    networks:
-      - hermes-net
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/healthcheck"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   nginx:
     image: nginx:alpine
@@ -54,15 +54,11 @@ services:
       - "8080"
     volumes:
       - ./nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf:ro
-    networks:
-      - hermes-net
     depends_on:
-      - dashboard
-      - tinyauth
+      tinyauth:
+        condition: service_healthy
+      dashboard:
+        condition: service_started
 
 volumes:
   hermes-data:
-
-networks:
-  hermes-net:
-    driver: bridge
