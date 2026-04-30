@@ -42,7 +42,7 @@ services:
     restart: unless-stopped
     environment:
       - SECRET=${TINYAUTH_SECRET}
-      - APP_URL=https://${SERVICE_FQDN_NGINX_8080}
+      - APP_URL=${HERMES_URL}
       - USERS=${TINYAUTH_USERS}
     networks:
       - hermes-net
