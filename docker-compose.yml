@@ -5,6 +5,12 @@ services:
     command: gateway run
     volumes:
       - hermes-data:/opt/data
+    environment:
+      # At least one LLM provider key is required to run Hermes. Set the environment variables for the providers you want to use.
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY:-}
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
+      - OPENAI_API_KEY=${OPENAI_API_KEY:-}
+      - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
     networks:
       - hermes-net
     deploy:
