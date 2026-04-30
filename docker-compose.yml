@@ -37,11 +37,11 @@ services:
     image: ghcr.io/steveiliop56/tinyauth:latest
     restart: unless-stopped
     environment:
-      - SECRET=${TINYAUTH_SECRET}
-      - APP_URL=${HERMES_URL}
-      - USERS=${TINYAUTH_USERS}
+      - TINYAUTH_SECRET=${TINYAUTH_SECRET}
+      - TINYAUTH_APPURL=${HERMES_URL}
+      - TINYAUTH_AUTH_USERS=${TINYAUTH_USERS}
     healthcheck:
-      test: ["CMD", "wget", "-qO-", "http://localhost:3000/api/healthcheck"]
+      test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
       interval: 10s
       timeout: 5s
       retries: 5
