@@ -40,6 +40,8 @@ services:
       - TINYAUTH_SECRET=${TINYAUTH_SECRET}
       - TINYAUTH_APPURL=${HERMES_URL}
       - TINYAUTH_AUTH_USERS=${TINYAUTH_USERS}
+      - TINYAUTH_LOG_LEVEL=${TINYAUTH_LOG_LEVEL:-info}
+      - TINYAUTH_LOG_STREAMS_AUDIT_ENABLED=${TINYAUTH_LOG_AUDIT:-false}
     healthcheck:
       test: ["CMD", "wget", "-qO-", "http://localhost:3000/health"]
       interval: 10s
