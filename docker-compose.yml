@@ -40,6 +40,8 @@ services:
       - TINYAUTH_SECRET=${TINYAUTH_SECRET}
       - TINYAUTH_APPURL=${HERMES_URL}
       - TINYAUTH_AUTH_USERS=${TINYAUTH_USERS}
+      - TINYAUTH_AUTH_LOGINMAXRETRIES=10
+      - TINYAUTH_AUTH_LOGINTIMEOUT=60
     healthcheck:
       test: [ "CMD", "tinyauth", "healthcheck" ]
       interval: 10s
