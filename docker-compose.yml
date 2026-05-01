@@ -40,9 +40,8 @@ services:
       - TINYAUTH_SECRET=${TINYAUTH_SECRET}
       - TINYAUTH_APPURL=${HERMES_URL}
       - TINYAUTH_AUTH_USERS=${TINYAUTH_USERS}
-      - TINYAUTH_LOG_LEVEL=${TINYAUTH_LOG_LEVEL:-info}
     healthcheck:
-      test: ["CMD", "tinyauth", "healthcheck"]
+      test: [ "CMD", "tinyauth", "healthcheck" ]
       interval: 10s
       timeout: 5s
       retries: 5
