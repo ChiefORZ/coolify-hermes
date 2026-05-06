@@ -11,6 +11,8 @@ services:
       - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY:-}
       - OPENAI_API_KEY=${OPENAI_API_KEY:-}
       - GOOGLE_API_KEY=${GOOGLE_API_KEY:-}
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN:-}
+
     deploy:
       resources:
         limits:
@@ -36,8 +38,6 @@ services:
   nginx:
     image: nginx:alpine
     restart: unless-stopped
-    ports:
-      - "8080:8080"
     networks:
       - default
       - coolify
